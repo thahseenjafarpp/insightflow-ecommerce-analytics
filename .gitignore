@@ -1,0 +1,22 @@
+# Python virtual environment
+.venv/
+
+# Raw and processed data
+data/raw/
+data/processed/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Environment variables
+.env
+
+# Test cache
+.pytest_cache/
