@@ -165,23 +165,23 @@ def clean_order_items(df):
 
 
 def clean_reviews(df):
-    """
-    Clean the order reviews dataset.
-    """
-
     print("\nStarting reviews cleaning...")
 
     df = df.drop_duplicates().copy()
 
-    # Convert review dates
+    # Remove duplicate review IDs
+    before = len(df)
+    df = df.drop_duplicates(subset=["review_id"], keep="first")
+    removed = before - len(df)
+
+    print(f"Duplicate review IDs removed: {removed}")
+
     df["review_creation_date"] = pd.to_datetime(
-        df["review_creation_date"],
-        errors="coerce"
+        df["review_creation_date"], errors="coerce"
     )
 
     df["review_answer_timestamp"] = pd.to_datetime(
-        df["review_answer_timestamp"],
-        errors="coerce"
+        df["review_answer_timestamp"], errors="coerce"
     )
 
     df = standardize_column_names(df)
@@ -209,5 +209,29 @@ def clean_products(df):
     print(df.isnull().sum()[df.isnull().sum() > 0])
 
     print("Product cleaning completed!")
+
+    return df
+
+
+def clean_product_numeric_columns(df):
+    df = df.copy()
+
+    numeric_columns = [
+        "product_name_lenght",
+        "product_description_lenght",
+        "product_photos_qty",
+        "product_weight_g",
+        "product_length_cm",
+        "product_height_cm",
+        "product_width_cm"
+    ]
+
+    for column in numeric_columns:
+        df[column] = pd.to_numeric(df[column], errors="coerce")
+
+        if column != "product_weight_g":
+            df[column] = df[column].round()
+
+        df[column] = df[column].astype("Int64")
 
     return df
