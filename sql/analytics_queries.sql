@@ -168,7 +168,8 @@ JOIN orders o
     ON c.customer_id = o.customer_id
 GROUP BY c.customer_unique_id
 HAVING COUNT(DISTINCT o.order_id) > 1
-ORDER BY order_count DESC;
+ORDER BY order_count DESC
+LIMIT 10;
 
 
 -- 18. Products earning more than the average product revenue
@@ -185,7 +186,8 @@ HAVING SUM(price) > (
         GROUP BY product_id
     ) AS product_totals
 )
-ORDER BY product_revenue DESC;
+ORDER BY product_revenue DESC
+LIMIT 10;
 
 
 -- 19. Monthly revenue using a CTE
@@ -257,7 +259,8 @@ JOIN customers c
 JOIN order_items oi
     ON o.order_id = oi.order_id
 GROUP BY c.customer_state
-ORDER BY average_order_value DESC;
+ORDER BY average_order_value DESC
+LIMIT 10;
 
 
 -- 23. Orders that took longer than the average delivery time
@@ -271,7 +274,8 @@ WHERE delivery_time_days > (
     FROM orders
     WHERE delivery_time_days IS NOT NULL
 )
-ORDER BY delivery_time_days DESC;
+ORDER BY delivery_time_days DESC
+LIMIT 10;
 
 
 -- 24. Customer order frequency classification
@@ -293,7 +297,8 @@ SELECT
         ELSE 'Frequent customer'
     END AS customer_segment
 FROM customer_orders
-ORDER BY order_count DESC;
+ORDER BY order_count DESC
+LIMIT 20;
 
 
 -- 25. Revenue contribution percentage by category
@@ -315,3 +320,40 @@ SELECT
     ) AS revenue_percentage
 FROM category_revenue
 ORDER BY revenue DESC;
+
+
+
+-- =========================================================
+-- KEY BUSINESS INSIGHTS
+-- =========================================================
+
+-- 1. Total orders and customers
+-- 99K+ orders and customers were analyzed across the dataset.
+
+-- 2. Order fulfillment
+-- Delivered orders represent the dominant share of total orders.
+
+-- 3. Revenue performance
+-- Total product revenue exceeds 13.5M based on order-item prices.
+
+-- 4. Delivery performance
+-- Average delivery time is approximately 12.56 days.
+
+-- 5. Regional performance
+-- Sao Paulo (SP) leads both order volume and revenue among customer states.
+
+-- 6. Category performance
+-- Beauty & Health is the leading product category by revenue.
+
+-- 7. Payment behavior
+-- Credit card is the dominant payment method by transaction volume and payment value.
+
+-- 8. Customer behavior
+-- Customer segmentation identifies one-time, repeat, and frequent customers.
+
+-- 9. Seller performance
+-- Seller rankings highlight the highest-revenue sellers for performance comparison.
+
+-- 10. Revenue concentration
+-- Category revenue contribution percentages identify the categories
+-- responsible for the largest shares of overall product revenue.
