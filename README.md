@@ -31,7 +31,13 @@ InsightFlow is an end-to-end e-commerce data engineering and analytics platform 
 
 ## Project Status
 
-Day 1 — Project setup and dataset selection
+- ✅ Day 1 — Project setup, dataset selection & environment
+- ✅ Day 2 — ETL pipeline: ingestion, cleaning, validation & transformation
+- ✅ Day 3 — PostgreSQL database design & data loading
+- ✅ Day 4 — SQL analytics & business queries
+- ⏳ Day 5 — Streamlit dashboard & Python analytics
+- ⏳ Day 6 — Testing, documentation & project polish
+- ⏳ Day 7 — Deployment & finalization
 
 ## Data Source
 
